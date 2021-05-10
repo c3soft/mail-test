@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'contact')]
+    #[Route('/contact', name: 'app_contact')]
     public function index(Request $request, ContactService $contactService, MailerInterface $mailer): Response
     {
         $contact = new Contact();
@@ -39,7 +39,7 @@ class ContactController extends AbstractController
             $mailer->send($email);
             // $this addFlash('message', 'message Envoyé !');
 
-            return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('app_contact');
         }
 
         return $this->render('contact/index.html.twig', [
