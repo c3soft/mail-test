@@ -15,8 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, MailerInterface $mailer): Response
-    // public function index(Request $request, ContactService $contactService, MailerInterface $mailer): Response
+    // public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, ContactService $contactService, MailerInterface $mailer): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -24,7 +24,7 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $contact = $form->getData();
-            // $contactService->persistContact($contact);
+            $contactService->persistContact($contact);
 
             $email = (new TemplatedEmail())
                     ->from($form->get('email')->getData())
